@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Professores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de Professores</h1>
+        <a class="btn btn-primary mb-3" href="/professores/new">Novo Professor</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Turmas</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="professor : ${professores}">
+                    <td th:text="${professor.id}">1</td>
+                    <td th:text="${professor.nome}">Nome</td>
+                    <td th:text="${professor.email}">Email</td>
+                    <td>
+                        <ul>
+                            <li th:each="turma : ${professor.turmas}" th:text="${turma.nome}"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/professores/edit/{id}(id=${professor.id})}">Editar</a>
+                        <a class="btn btn-danger" th:href="@{/professores/delete/{id}(id=${professor.id})}" 
+                           onclick="return confirm('Tem certeza que deseja deletar este professor?');">Deletar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

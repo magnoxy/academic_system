@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Estudantes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de Estudantes</h1>
+        <a class="btn btn-primary mb-3" href="/estudantes/new">Novo Estudante</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Turmas</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estudante : ${estudantes}">
+                    <td th:text="${estudante.id}">1</td>
+                    <td th:text="${estudante.nome}">Nome</td>
+                    <td th:text="${estudante.email}">Email</td>
+                    <td>
+                        <ul>
+                            <li th:each="turma : ${estudante.turmas}" th:text="${turma.nome}"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/estudantes/edit/{id}(id=${estudante.id})}">Editar</a>
+                        <a class="btn btn-danger" th:href="@{/estudantes/delete/{id}(id=${estudante.id})}" 
+                           onclick="return confirm('Tem certeza que deseja deletar este estudante?');">Deletar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

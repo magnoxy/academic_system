@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulário de Professor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 th:text="${professor.id != null} ? 'Editar Professor' : 'Novo Professor'">Formulário de Professor</h1>
+        <form th:action="@{/professores}" th:object="${professor}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            </div>
+            <div class="form-group">
+                <label for="turmas">Turmas</label>
+                <select multiple class="form-control" id="turmas" th:field="*{turmas}">
+                    <option th:each="turma : ${turmas}" th:value="${turma.id}" th:text="${turma.nome}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-secondary" href="/professores">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
